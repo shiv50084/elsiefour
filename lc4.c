@@ -55,7 +55,7 @@ test(void)
     TEST("decrypt", !strcmp(pt, ptout));
 }
 
-
+/* Portable getopt() implementation */
 
 static int optind = 1;
 static int opterr = 1;
