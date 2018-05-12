@@ -217,7 +217,7 @@ main(int argc, char **argv)
             for (i = 35; i > 0; i--) {
                 do {
                     r = fgetc(urandom) % 64;
-                } while (r > i + 1);
+                } while (r > i);
                 tmp = key[i];
                 key[i] = key[r];
                 key[r] = tmp;
