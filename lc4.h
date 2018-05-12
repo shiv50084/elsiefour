@@ -47,7 +47,7 @@ lc4_char(int v)
     return table[v];
 }
 
-int
+static int
 lc4_valid(const char *key)
 {
     int i;
@@ -60,7 +60,7 @@ lc4_valid(const char *key)
     return !key[36];
 }
 
-void
+static void
 lc4_init(struct lc4 *lc4, const char *key)
 {
     int i;
@@ -99,7 +99,7 @@ lc4_rotate_col(struct lc4 *lc4, int c)
     }
 }
 
-int
+static int
 lc4_encrypt(struct lc4 *lc4, int v)
 {
     int pt = lc4_value(v);
@@ -123,7 +123,7 @@ lc4_encrypt(struct lc4 *lc4, int v)
     return 0;
 }
 
-int
+static int
 lc4_decrypt(struct lc4 *lc4, int v)
 {
     int ct = lc4_value(v);
