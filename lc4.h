@@ -38,7 +38,7 @@ lc4_value(int c)
 static int
 lc4_char(int v)
 {
-    const char table[] = {
+    static const char table[] = {
         0x23, 0x5f, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38,
         0x39, 0x61, 0x62, 0x63, 0x64, 0x65, 0x66, 0x67, 0x68,
         0x69, 0x6a, 0x6b, 0x6c, 0x6d, 0x6e, 0x6f, 0x70, 0x71,
@@ -51,10 +51,10 @@ static int
 lc4_valid(const char *key)
 {
     int i;
-    char table[36] = {0};
+    char seen[36] = {0};
     for (i = 0; i < 36; i++) {
         int v = lc4_value(key[i]);
-        if (v == -1 || table[v]++)
+        if (v == -1 || seen[v]++)
             return 0;
     }
     return !key[36];
