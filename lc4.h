@@ -109,7 +109,7 @@ lc4_encrypt(struct lc4 *lc4, int v)
         int r = lc4->rev[pt] / 6;
         int c = lc4->rev[pt] % 6;
         int x = (r + lc4->s[i][j] / 6) % 6;
-        int y = (c + lc4->s[i][j] % 6) % 6;
+        int y = (c + lc4->s[i][j]) % 6;
         int ct = lc4->s[x][y];
         lc4_rotate_row(lc4, r);
         if (x == r) y = (y + 1) % 6;
@@ -117,7 +117,7 @@ lc4_encrypt(struct lc4 *lc4, int v)
         lc4_rotate_col(lc4, y);
         if (j == y) i = (i + 1);
         lc4->i = (i + ct / 6) % 6;
-        lc4->j = (j + ct % 6) % 6;
+        lc4->j = (j + ct) % 6;
         return lc4_char(ct);
     }
     return 0;
@@ -132,8 +132,8 @@ lc4_decrypt(struct lc4 *lc4, int v)
         int j = lc4->j;
         int x = lc4->rev[ct] / 6;
         int y = lc4->rev[ct] % 6;
-        int r = (6 + x - lc4->s[i][j] / 6) % 6;
-        int c = (6 + y - lc4->s[i][j] % 6) % 6;
+        int r = (36 + x - lc4->s[i][j] / 6) % 6;
+        int c = (36 + y - lc4->s[i][j]) % 6;
         int pt = lc4->s[r][c];
         lc4_rotate_row(lc4, r);
         if (x == r) y = (y + 1) % 6;
@@ -141,7 +141,7 @@ lc4_decrypt(struct lc4 *lc4, int v)
         lc4_rotate_col(lc4, y);
         if (j == y) i = (i + 1);
         lc4->i = (i + ct / 6) % 6;
-        lc4->j = (j + ct % 6) % 6;
+        lc4->j = (j + ct) % 6;
         return lc4_char(pt);
     }
     return 0;
